@@ -11,7 +11,9 @@ function greeter(person) {
     return "Hello, " + person.firstName + " " + person.lastName;
 }
 // OK
-// let user: Student = new Student('Jane', 'M.', 'User');
-// NG, Person以外のプロパティは持てない
 var user = new Student('Jane', 'M.', 'User');
-console.log(greeter(user));
+// OK, StudentはPersonを継承しているのでOK
+// let user: Person = new Student('Jane', 'M.', 'User');
+console.log(greeter(user), 
+// userがPerson型の場合はNG, Studentを代入したとしても, Person型にないものにはアクセスしてはいけない
+user.middleInitial);
