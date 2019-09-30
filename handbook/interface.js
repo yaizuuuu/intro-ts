@@ -72,5 +72,90 @@ var Dog = /** @class */ (function (_super) {
     return Dog;
 }(Animal));
 var myROArray = ['Alice', 'Bob'];
-myROArray[2] = "Mallory";
+var Clock = /** @class */ (function () {
+    function Clock(h) {
+        this.currentTime = new Date();
+    }
+    Clock.prototype.setTime = function (d) {
+        this.currentTime = d;
+    };
+    return Clock;
+}());
+function createClock(ctor, hour, minute) {
+    return new ctor(hour, minute);
+}
+var DigitalClock = /** @class */ (function () {
+    function DigitalClock(h, m) {
+    }
+    DigitalClock.prototype.tick = function () {
+        console.log('beep beep');
+    };
+    return DigitalClock;
+}());
+var AnalogClock = /** @class */ (function () {
+    function AnalogClock(h, m) {
+    }
+    AnalogClock.prototype.tick = function () {
+        console.log('tick tok');
+    };
+    return AnalogClock;
+}());
+var digital = createClock(DigitalClock, 12, 17);
+var analog = createClock(AnalogClock, 7, 32);
+var Clock4 = /** @class */ (function () {
+    function Clock3(h, m) {
+    }
+    Clock3.prototype.tick = function () {
+        console.log('beep beep');
+    };
+    return Clock3;
+}());
+var square = {};
+square.color = 'red';
+square.sideLength = 10;
+square.penWidth = 10;
+function getCounter() {
+    var counter = (function (start) {
+    });
+    counter.interval = 123;
+    counter.reset = function () {
+    };
+    return counter;
+}
+var c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+/******************************************************************************************/
+/******************************************************************************************/
+var Control = /** @class */ (function () {
+    function Control() {
+    }
+    return Control;
+}());
+var Button = /** @class */ (function (_super) {
+    __extends(Button, _super);
+    function Button() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Button.prototype.select = function () { };
+    return Button;
+}(Control));
+var TextBox = /** @class */ (function (_super) {
+    __extends(TextBox, _super);
+    function TextBox() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TextBox.prototype.select = function () { };
+    return TextBox;
+}(Control));
+var Image2 = /** @class */ (function (_super) {
+    __extends(Image2, _super);
+    function Image2() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Image2.prototype.select = function () {
+    };
+    return Image2;
+}(Control));
 /******************************************************************************************/
