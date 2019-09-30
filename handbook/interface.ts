@@ -296,6 +296,8 @@ c.interval = 5.0;
 /******************************************************************************************/
 class Control {
     private state: any;
+    // **後述: この場合は一階層で再現できる**
+    // public state: any;
 }
 
 // interfaceはclassをextendsできる
@@ -314,6 +316,9 @@ class TextBox extends Control {
 }
 
 // NG, Controlをextendsしなくてはならない
+// implementsで指定するSelectableControlは親にprivateのプロパティを持っているため
+// 一階層では再現できない
+// publicの場合は一階層で再現できるためOK
 // class Image2 implements SelectableControl {
 //     private state: any;
 //     select(): void {
