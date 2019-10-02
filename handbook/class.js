@@ -171,4 +171,8 @@ var Point4d = /** @class */ (function () {
     }
     return Point4d;
 }());
+// Pointのプロパティがprivate, protectedの場合
+// class Point4d implements Point3d extends Point {
+//     z: number;
+// }
 /******************************************************************/
