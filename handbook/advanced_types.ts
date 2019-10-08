@@ -181,11 +181,13 @@ interface Square {
     kind: "square";
     size: number;
 }
+
 interface Rectangle {
     kind: "rectangle";
     width: number;
     height: number;
 }
+
 interface Circle {
     kind: "circle";
     radius: number;
@@ -199,13 +201,18 @@ function assertNever(x: never): never {
 
 function area(s: Shape) {
     switch (s.kind) {
-        case "square": return s.size * s.size;
-        case "rectangle": return s.height * s.width;
-        case "circle": return Math.PI * s.radius ** 2;
+        case "square":
+            return s.size * s.size;
+        case "rectangle":
+            return s.height * s.width;
+        case "circle":
+            return Math.PI * s.radius ** 2;
         //
-        default: return assertNever(s);
+        default:
+            return assertNever(s);
     }
 }
+
 /*******************************************/
 
 /*******************************************/
@@ -214,12 +221,12 @@ class BasicCalculator {
 
     }
 
-    public add(operand: number):this {
+    public add(operand: number): this {
         this.value += operand;
         return this;
     }
 
-    public multiply(operand: number):this {
+    public multiply(operand: number): this {
         this.value *= operand;
         return this;
     }
@@ -237,3 +244,92 @@ let v = new BasicCalculator(1)
 console.log(v);
 /*******************************************/
 
+/*******************************************/
+// `K extends keyof T` で Kに格納されるkeyの一覧が型となる
+// T[K][]でKに格納されていたkeyがアサインされた配列を指定の型とできる
+function pluck<T, K extends keyof T>(o: T, propertyNames: K[]): T[K][] {
+    return propertyNames.map(n => o[n]);
+}
+
+interface Car {
+    manufacturer: string;
+    model: string;
+    year: number;
+}
+
+let taxi: Car = {
+    manufacturer: 'Toyota',
+    model: 'Camry',
+    year: 2014,
+};
+
+// OK
+let makeAndModel: string[] = pluck(taxi, ['manufacturer', 'model']);
+let makeAndModel2 = pluck(taxi, ['model', 'year']);
+// NG, unknownはtaxiに存在しないkeyのため
+// let makeAndModel3 = pluck(taxi, ['year', 'unknown']);
+
+// ユニオン型('manufacturer' | 'model' | 'year')
+let carProps: keyof Car;
+
+interface Dictionary<T> {
+    [key: string]: T;
+}
+
+// (number | string)型, Dictionaryのstring型の場合, 42, '42'でアクセスできる故
+let keys: keyof Dictionary<number>;
+// number型
+let values: Dictionary<number>['foo'];
+
+interface Person {
+    name: string;
+    age: number;
+}
+
+interface PersonPartial {
+    name?: string;
+    age?: number;
+}
+
+interface PersonReadOnly {
+    readonly name: string;
+    readonly age: number;
+}
+
+// ReadOnlyのオブジェクトに変換する
+type ReadOnly<T> = {
+    readonly [P in keyof T]: T[P]
+};
+
+interface ReadOnly2<T, P extends keyof T> {
+    readonly P: T[P]
+}
+
+// 任意のプロパティに変更する
+type Partial2<T> = {
+    [P in keyof T]?: T[P]
+};
+
+interface Partial3<T, P extends keyof T> {
+    P?: T[P]
+}
+
+type test = ReadOnly<Person>;
+let test2: ReadOnly2<Person, keyof Person>;
+type test3 = Partial2<Person>;
+let test4: Partial3<Person, keyof Person>;
+
+type Keys = 'option1 | option2';
+type Flags = { [K in Keys]?: boolean | null };
+
+type Proxy<T> = {
+    get(): T;
+    set(value: T): void;
+}
+type Proxify<T> = {
+    [P in keyof T]: Proxy<T[P]>
+};
+/*******************************************/
+
+
+// https://www.typescriptlang.org/docs/handbook/advanced-types.html#conditional-types

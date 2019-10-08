@@ -126,11 +126,15 @@ function assertNever(x) {
 }
 function area(s) {
     switch (s.kind) {
-        case "square": return s.size * s.size;
-        case "rectangle": return s.height * s.width;
-        case "circle": return Math.PI * Math.pow(s.radius, 2);
+        case "square":
+            return s.size * s.size;
+        case "rectangle":
+            return s.height * s.width;
+        case "circle":
+            return Math.PI * Math.pow(s.radius, 2);
         //
-        default: return assertNever(s);
+        default:
+            return assertNever(s);
     }
 }
 /*******************************************/
@@ -159,3 +163,29 @@ var v = new BasicCalculator(1)
     .currentValue();
 console.log(v);
 /*******************************************/
+/*******************************************/
+// `K extends keyof T` で Kに格納されるkeyの一覧が型となる
+// T[K][]でKに格納されていたkeyがアサインされた配列を指定の型とできる
+function pluck(o, propertyNames) {
+    return propertyNames.map(function (n) { return o[n]; });
+}
+var taxi = {
+    manufacturer: 'Toyota',
+    model: 'Camry',
+    year: 2014
+};
+// OK
+var makeAndModel = pluck(taxi, ['manufacturer', 'model']);
+var makeAndModel2 = pluck(taxi, ['model', 'year']);
+// NG, unknownはtaxiに存在しないkeyのため
+// let makeAndModel3 = pluck(taxi, ['year', 'unknown']);
+// ユニオン型('manufacturer' | 'model' | 'year')
+var carProps;
+// (number | string)型, Dictionaryのstring型の場合, 42, '42'でアクセスできる故
+var keys;
+// number型
+var values;
+var test2;
+var test4;
+/*******************************************/
+// https://www.typescriptlang.org/docs/handbook/advanced-types.html#conditional-types
