@@ -333,3 +333,4 @@ type Proxify<T> = {
 
 
 // https://www.typescriptlang.org/docs/handbook/advanced-types.html#conditional-types
+// 条件付きタイプ, conditional typeについてまとめる
