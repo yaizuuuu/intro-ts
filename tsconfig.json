@@ -3,6 +3,7 @@
     "outDir": "./built",
     "allowJs": true,
     "target": "es5",
+    "lib": ["es5", "es6", "dom", "scripthost", "es2015.symbol"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },

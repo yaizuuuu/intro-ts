@@ -35,18 +35,21 @@ export default interface ExportDefaultInterface {
 // import <name> from './xxxxxx';
 // 単純な値もexportできる
 // export default 123
-import zip = require('jquery');
 
+// `module.exports = ~~~`(CommonJS) でexportされたモジュールは `import *** from '~~~'(ESModule) を使用できないため以下を使用`
+// import $ = require("jquery");
+import * as $ from 'jquery'
+$('html');
+
+
+declare function require(moduleName: string): any;
 
 // 動的なライブラリの読み込み
-// declare function require(moduleName: string): any;
-//
-// import {ZipCodeValidator as Zip} from "./ZipCodeValidator";
-//
-// if (needZipValidation) {
-//     // requireでライブラリを読み込み
-//     let ZipCodeValidator: typeof Zip = require("./ZipCodeValidator");
-//     let validator = new ZipCodeValidator();
-//     if (validator.isAcceptable("...")) { /* ... */
-//     }
-// }
+import jQuery = require('jquery');
+
+const lazyload = function () {
+    // requireでライブラリを読み込み
+    const $: typeof jQuery = require("jquery");
+};
+
+
